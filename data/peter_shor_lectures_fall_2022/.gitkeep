@@ -1,4 +1,5 @@
-# Local lecture PDFs go here (not committed)
-# Example:
-#   data/peter_shor_lectures_fall_2022/Lecture_01.pdf
-# Then run: python src/main.py ingest
+# Download Peter Shor's lecture notes from:
+# https://math.mit.edu/~shor/435-LN/
+#
+# Put the PDFs in this folder, then run:
+#   python src/main.py ingest

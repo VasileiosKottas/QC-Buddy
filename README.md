@@ -1,14 +1,22 @@
 # QC Buddy
 
-Local study agent for quantum computing notes: RAG over lecture PDFs, LangGraph chat with memory, quiz game with points, and a Streamlit UI.
+A local study buddy for quantum computing. It reads your lecture notes, answers questions from them, remembers what you struggle with, and can quiz you like a small game.
 
-## Features
+Built with RAG + LangGraph + a Streamlit UI. Runs locally with Ollama.
 
-- **RAG Q&A** grounded in your lecture notes (Chroma + local embeddings)
-- **LangGraph chat** with persistent thread memory
-- **Quiz / practice** with scoring (`+10` correct, `-5` incorrect, `-3` for "I don't know" + answer reveal)
-- **Student memory** (weak/strong topics, score)
-- **Streamlit UI** for chat, study, and quiz
+## Get the lectures
+
+The PDFs are not in this repo. Grab Peter Shor's notes from here:
+
+[https://math.mit.edu/~shor/435-LN/](https://math.mit.edu/~shor/435-LN/)
+
+Drop them into:
+
+```text
+data/peter_shor_lectures_fall_2022/
+```
+
+Name them like `Lecture_01.pdf`, `Lecture_02.pdf`, … (or keep whatever names you download and adjust paths if needed).
 
 ## Setup
 
@@ -18,47 +26,45 @@ python -m venv venv
 pip install -r requirements.txt
 ```
 
-Install [Ollama](https://ollama.com) and pull a model:
+You'll also want [Ollama](https://ollama.com) with a chat model:
 
 ```powershell
 ollama pull llama3.2
 ```
 
-Put lecture PDFs in:
-
-```text
-data/peter_shor_lectures_fall_2022/Lecture_XX.pdf
-```
-
-Then ingest:
+Then build the vector store from the PDFs:
 
 ```powershell
 python src/main.py ingest
 ```
 
-## Run
+## Run it
 
-CLI chat:
+Chat in the terminal:
 
 ```powershell
 python src/main.py chat
 ```
 
-Streamlit UI:
+Or open the UI:
 
 ```powershell
 streamlit run src/app.py
 ```
 
-## Useful commands (chat)
+## What you can do
 
+In chat (or the UI):
+
+- ask questions about the notes
 - `quiz me on entanglement`
-- `practice` — quiz a weak topic
-- `I don't know` — reveal answer (costs points)
+- `practice` — drills a weak topic
+- say `I don't know` during a quiz to see the answer (costs points)
 - `use lecture 11` / `clear lecture filter`
 - `show memory` / `show score`
 
+Scoring is roughly: correct +10, partial +3, wrong −5, don't know −3.
+
 ## Notes
 
-- Vector DB, checkpoints, and student memory are local (gitignored) and created on first use.
-- Lecture PDFs are gitignored; add your own notes before ingesting.
+Your Chroma DB, chat checkpoints, and student memory stay on your machine (they're gitignored). Re-run ingest whenever you add more lectures.
