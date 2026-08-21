@@ -1,0 +1,53 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# IDE / OS
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Local ML / Hugging Face caches
+.cache/
+*.pt
+*.bin
+
+# Project runtime data (regenerated locally)
+data/chroma_db/
+data/checkpoints.sqlite
+data/checkpoints.sqlite-*
+data/student_memory.json
+
+# Lecture PDFs (add locally; may be copyrighted course material)
+data/peter_shor_lectures_fall_2022/*.pdf
+data/**/*.pdf
+
+# Streamlit
+.streamlit/secrets.toml
+
+# Logs / temp
+*.log
+*.tmp
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/

@@ -1,0 +1,4 @@
+# Local lecture PDFs go here (not committed)
+# Example:
+#   data/peter_shor_lectures_fall_2022/Lecture_01.pdf
+# Then run: python src/main.py ingest

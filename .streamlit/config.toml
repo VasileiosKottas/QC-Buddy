@@ -1,0 +1,7 @@
+[server]
+# Avoid Streamlit walking heavy packages like transformers/torch and
+# spamming ModuleNotFoundError for optional deps (e.g. torchvision).
+fileWatcherType = "none"
+
+[browser]
+gatherUsageStats = false
