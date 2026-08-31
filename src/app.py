@@ -5,6 +5,7 @@ import streamlit as st
 from langchain_core.messages import AIMessage, HumanMessage
 
 from agents.agent import app
+from math_format import sanitize_math_markdown
 from memory import (
     add_note,
     add_quiz_result,
@@ -45,6 +46,8 @@ def _init_state() -> None:
 
 
 def _append(role: str, content: str) -> None:
+    if role == "assistant":
+        content = sanitize_math_markdown(content)
     st.session_state.messages.append({"role": role, "content": content})
 
 
@@ -275,7 +278,10 @@ if st.session_state.show_memory_panel:
 # ---- Chat history ----
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
-        st.markdown(message["content"])
+        content = message["content"]
+        if message["role"] == "assistant":
+            content = sanitize_math_markdown(content)
+        st.markdown(content)
 
 # ---- Input ----
 placeholder = (

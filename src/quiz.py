@@ -13,6 +13,19 @@ POINTS_PARTIAL = 3
 POINTS_INCORRECT = -5
 POINTS_DONT_KNOW = -3
 
+# Kept as a plain string; examples avoid { } so str.format() is safe.
+LATEX_MATH_RULES = (
+    "When you write math, use ONLY Streamlit-safe KaTeX:\n"
+    "- inline: $...$\n"
+    "- display: $$...$$ on their own lines\n"
+    "- one equation per $$...$$ block\n"
+    r"Prefer standard QC notation (|0\rangle, \otimes, 1/\sqrt 2, H|0\rangle)." "\n"
+    "FORBIDDEN (breaks rendering): align, align*, equation, equation*, &=, "
+    "any begin/end environment, \\left, \\right.\n"
+    "Do not invent equations that are not supported by the notes.\n"
+    "Do not wrap the whole answer in a markdown code fence."
+)
+
 # Topics that appear across Shor-style QC notes (used for Random)
 STUDY_TOPICS = [
     "quantum weirdness and history of quantum mechanics",
@@ -49,6 +62,8 @@ Rules:
 - End with 2 quick self-check questions (do NOT answer them)
 - Cite lecture files like: Resources: Lecture_XX.pdf
 
+""" + LATEX_MATH_RULES + """
+
 Context:
 {context}
 """
@@ -61,6 +76,7 @@ Rules:
 - Prefer conceptual understanding over trivia
 - Keep it to 1-3 sentences
 - If the context is too weak, say: NOT_ENOUGH_CONTEXT
+- If the question needs math, write it in LaTeX ($...$ or $$...$$)
 
 Context:
 {context}
@@ -73,6 +89,8 @@ Verdict: Correct | Partial | Incorrect
 Explanation: 2-4 sentences grounded in the notes
 Correct answer: a clear short answer from the notes
 Resources: Lecture_XX.pdf
+
+""" + LATEX_MATH_RULES + """
 
 Question: {question}
 Student answer: {answer}
@@ -89,6 +107,8 @@ Verdict: Don't Know
 Explanation: teach the answer from the notes in simple language
 Correct answer: one short summary sentence
 Resources: Lecture_XX.pdf
+
+""" + LATEX_MATH_RULES + """
 
 Question: {question}
 
