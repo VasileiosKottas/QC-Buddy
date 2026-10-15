@@ -4,67 +4,36 @@ A local study buddy for quantum computing. It reads your lecture notes, answers 
 
 Built with RAG + LangGraph + a Streamlit UI. Runs locally with Ollama.
 
-## Get the lectures
+## New computer / Cursor handoff
 
-The PDFs are not in this repo. Grab Peter Shor's notes from here:
+**Read [CONTINUE.md](CONTINUE.md)** — full clone → setup → ingest → run checklist, project map, and known quirks.
 
-[https://math.mit.edu/~shor/435-LN/](https://math.mit.edu/~shor/435-LN/)
+## Quick start
 
-Drop them into:
-
-```text
-data/peter_shor_lectures_fall_2022/
-```
-
-Name them like `Lecture_01.pdf`, `Lecture_02.pdf`, … (or keep whatever names you download and adjust paths if needed).
-
-## Setup
+1. Clone this repo and open it in Cursor  
+2. Create a venv and install deps (`pip install -r requirements.txt`)  
+3. Install [Ollama](https://ollama.com) and run `ollama pull llama3.2`  
+4. Download lectures from [Shor’s notes](https://math.mit.edu/~shor/435-LN/) into `data/peter_shor_lectures_fall_2022/`  
+5. Ingest and run:
 
 ```powershell
-python -m venv venv
-.\venv\Scripts\activate
-pip install -r requirements.txt
+.\venv\Scripts\python.exe src/main.py ingest
+.\venv\Scripts\python.exe -m streamlit run src/app.py
 ```
 
-You'll also want [Ollama](https://ollama.com) with a chat model:
-
-```powershell
-ollama pull llama3.2
-```
-
-Then build the vector store from the PDFs:
-
-```powershell
-python src/main.py ingest
-```
-
-## Run it
-
-Chat in the terminal:
-
-```powershell
-python src/main.py chat
-```
-
-Or open the UI:
-
-```powershell
-streamlit run src/app.py
-```
+If PowerShell blocks `activate`, skip it and use `.\venv\Scripts\python.exe` as above.
 
 ## What you can do
 
-In chat (or the UI):
+- ask questions about the notes  
+- `quiz me on entanglement` / **Help me study** / **Random quiz**  
+- `practice` — drills a weak topic  
+- `I don't know` during a quiz to see the answer (costs points)  
+- `use lecture 11` / `clear lecture filter`  
+- `show memory` / `show score`  
 
-- ask questions about the notes
-- `quiz me on entanglement`
-- `practice` — drills a weak topic
-- say `I don't know` during a quiz to see the answer (costs points)
-- `use lecture 11` / `clear lecture filter`
-- `show memory` / `show score`
-
-Scoring is roughly: correct +10, partial +3, wrong −5, don't know −3.
+Scoring: correct +10, partial +3, wrong −5, don’t know −3.
 
 ## Notes
 
-Your Chroma DB, chat checkpoints, and student memory stay on your machine (they're gitignored). Re-run ingest whenever you add more lectures.
+PDFs, Chroma DB, chat checkpoints, and student memory stay on your machine (gitignored). Re-run ingest when you add lectures.
